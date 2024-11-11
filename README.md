@@ -17,7 +17,7 @@ Breve descrição do projeto.
 1. Clone o repositório:
 
    ```bash
-   git clone https://github.com/edsonrdl/micro-service-order.git
+   git clone https://github.com/edsonrdl/micro-service-notification.git
    cd seu-repositorio-payment
 
 ## Instalação da API com os Demais Microserviços e Especificações
