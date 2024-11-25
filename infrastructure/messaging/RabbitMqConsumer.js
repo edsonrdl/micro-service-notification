@@ -1,19 +1,19 @@
 require('dotenv').config();
 const RabbitMqService = require('../services/rabbitmqservice/RabbitMqService');
-const ProcessPaymentService = require('../../application/services/ProcessPaymentService');
+const ProcessNotificationService = require('../../application/services/processenotification/ProcessNotificationService');
 const ReconnectScheduler = require('../scheduler/ReconnectScheduler');
 
 class RabbitMqConsumer {
-    constructor(config, paymentRepository) {
+    constructor(config, notificationRepository) {
         this.rabbitMqService = new RabbitMqService(config);
-        this.paymentRepository = paymentRepository; 
+        this.notificationRepository = notificationRepository; 
         this.scheduler = new ReconnectScheduler(10, 5000);
         this.isConsuming = false; 
     }
    
     async start() {
         try {
-            console.log('Conectando ao RabbitMQ e iniciando consumo da fila de pagamento...');
+            console.log('Conectando ao RabbitMQ e iniciando consumo da fila de notificação...');
             await this.rabbitMqService.connect(); 
 
         
@@ -21,9 +21,9 @@ class RabbitMqConsumer {
 
          
             await this.startConsuming();
-            console.log('Consumidor de processamento de pagamento iniciado com sucesso.');
+            console.log('Consumidor de notificação iniciado com sucesso.');
         } catch (err) {
-            console.error('Erro ao iniciar o consumidor de processamento de pagamento:', err.message);
+            console.error('Erro ao iniciar o consumidor de notificação :', err.message);
 
             await this.scheduler.schedule(() => this.start());
         }
@@ -36,24 +36,24 @@ class RabbitMqConsumer {
         this.isConsuming = true; 
         try {
             await this.rabbitMqService.consume(async (message) => {
-                console.log('Mensagem  recebida payment_queue:', message);
+                console.log('Mensagem  recebida notification_queue:', message);
 
-                const processOrderUseService = new ProcessPaymentService(this.paymentRepository);
+                const processnotificationeService = new ProcessNotificationService(this.notificationRepository);
                 try {
             
-                    await processOrderUseService.execute(JSON.parse(message));
-                    console.log('Mensagem  payment_queue processada com sucesso.');
+                    await processnotificationeService.execute(JSON.parse(message));
+                    console.log('Mensagem  notification_queue processada com sucesso.');
                 } catch (err) {
-                    console.error('Erro ao processar mensagem payment_queue:', err.message);
+                    console.error('Erro ao processar mensagem notification_queue:', err.message);
                 }
             });
         } catch (err) {
-            console.error('Erro ao iniciar o consumo de mensagens processamento de pagamento:', err.message);
+            console.error('Erro ao iniciar o consumo de mensagens de notificação:', err.message);
         }
     }
 
     async restartConsuming() {
-        console.log('Reiniciando consumo de processamento de pagamento...');
+        console.log('Reiniciando consumo de processamento de notificação...');
         this.isConsuming = false;
         await this.startConsuming(); 
     }
