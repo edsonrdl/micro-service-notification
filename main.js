@@ -5,9 +5,9 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const config = require('./config/config');
 const MongoDbRepository = require('./infrastructure/persistence/repositories/mongoRespositories/MongoDbRepository');
-const PaymentRepository = require('./infrastructure/persistence/repositories/paymentRepository/PaymentRepository');
+const NotificationRepository = require('./infrastructure/persistence/repositories/notificationRepository/NotificationRepository');
 const RabbitMqConsumer = require('./infrastructure/messaging/RabbitMqConsumer');
-const PaymentController = require('./microservice/controllers/PaymentController');
+const NotificationController = require('./microservice/controllers/NotificationController');
 const paymentRoutes = require('./microservice/routes/PaymentRoutes.JS');
 
 (async function startSystem() {
@@ -23,15 +23,15 @@ const paymentRoutes = require('./microservice/routes/PaymentRoutes.JS');
 
         const mongoDbRepository = new MongoDbRepository(config.mongoDb);
         const db = await mongoDbRepository.connect();
-        const paymentRepository = new PaymentRepository(db);
+        const notificationRepository = new NotificationRepository(db);
 
    
-        const rabbitMqConsumer = new RabbitMqConsumer(config.rabbitMq, paymentRepository);
+        const rabbitMqConsumer = new RabbitMqConsumer(config.rabbitMq, notificationRepository);
         await rabbitMqConsumer.start();
 
      
-        const paymentController = new PaymentController(paymentRepository);
-        app.use('/api/payments', paymentRoutes(paymentController));
+        const notificationController = new NotificationController(notificationRepository);
+        app.use('/api/notifications', notificationRoutes(notificationController));
 
         app.listen(config.server.port, () => {
             console.log(`Servidor rodando na porta ${config.server.port}`);

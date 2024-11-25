@@ -28,14 +28,14 @@ class RabbitMqService {
 
     
             this.connection.on('close', async () => {
-                console.error('Conexão com fila de pagamento foi fechada. Tentando reconectar...');
+                console.error('Conexão com fila de notificação foi fechada. Tentando reconectar...');
                 this.isConnected = false;
                 await this.handleReconnect();
             });
 
  
             this.connection.on('error', async (err) => {
-                console.error('Erro na conexão com fila de pagamento:', err.message);
+                console.error('Erro na conexão com fila de notificação:', err.message);
                 this.isConnected = false;
                 await this.handleReconnect();
             });
@@ -45,7 +45,7 @@ class RabbitMqService {
                 await this.onReconnectCallback();
             }
         } catch (err) {
-            console.error('Erro ao conectar a fila de pagamento:', err.message);
+            console.error('Erro ao conectar a fila de notificação:', err.message);
             this.isConnected = false;
             throw err;
         }
@@ -54,10 +54,10 @@ class RabbitMqService {
   
     async consume(callback) {
         if (!this.channel) {
-            throw new Error('Canal fila de pagamento não configurado. Conecte-se primeiro.');
+            throw new Error('Canal fila de notificação não configurado. Conecte-se primeiro.');
         }
 
-        console.log('Iniciando consumo de mensagens fila de pagamento...');
+        console.log('Iniciando consumo de mensagens fila de notificação...');
         await this.channel.consume(this.config.queue, async (msg) => {
             if (msg) {
                 try {
@@ -65,7 +65,7 @@ class RabbitMqService {
                     await callback(msg.content.toString());
                     this.channel.ack(msg); 
                 } catch (err) {
-                    console.error('Erro ao processar mensagem de pagamento:', err.message);
+                    console.error('Erro ao processar mensagem de notificação:', err.message);
                     this.channel.nack(msg, false, false); 
                 }
             }
