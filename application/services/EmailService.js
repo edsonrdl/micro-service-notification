@@ -2,6 +2,7 @@ const nodemailer = require("nodemailer");
 
 class EmailService {
   constructor() {
+    this.transporter = null;
     this.initTransporter();
   }
 
@@ -25,7 +26,7 @@ class EmailService {
       const emailContent = this.generateEmailContent(status, message, orderId);
 
       const info = await this.transporter.sendMail({
-        from: '"Notificações" <asiCode@example.com>',
+        from: '"Sistema de Notificação" <asicode@asi.com>',
         to: "monkeyDLuffy@example.com",
         subject: `Atualização do Pedido ${orderId}`,
         text: emailContent.text,

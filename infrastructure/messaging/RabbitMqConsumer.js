@@ -1,6 +1,6 @@
 require('dotenv').config();
 const RabbitMqService = require('../services/rabbitmqservice/RabbitMqService');
-const ProcessNotificationService = require('../../application/services/processenotification/ProcessNotificationService');
+const ProcessNotificationService = require('../../application/services/ProcessNotificationService');
 const ReconnectScheduler = require('../scheduler/ReconnectScheduler');
 
 class RabbitMqConsumer {
