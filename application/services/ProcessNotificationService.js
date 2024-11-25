@@ -25,11 +25,11 @@ class ProcessNotificationService {
     try {
 
       const notification = new Notification({
-        notificationId: notificationData.notificationId,
-        orderId: notificationData.orderId,
-        message: notificationData.message,
-        sentAt: notificationData.sentAt || new Date(),
-        status: notificationData.status,
+        notificationId: notificationData.NotificationId,
+        orderId: notificationData.OrderId,
+        message: notificationData.Message,
+        sentAt: notificationData.SentAt || new Date(),
+        status: notificationData.Status,
       });
 
 
