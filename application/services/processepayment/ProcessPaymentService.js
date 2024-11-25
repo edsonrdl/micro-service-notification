@@ -1,4 +1,4 @@
-const Payment = require("../../domain/entities/Payment");
+const Payment = require("../../../domain/entities/Payment");
 
 class ProcessPaymentService {
   constructor(paymentRepository) {
