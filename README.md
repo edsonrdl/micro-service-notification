@@ -117,6 +117,7 @@ Após configurar a API principal e garantir que os containers do RabbitMQ e da A
    Simulador de notificação:
 
    ![Simulador de Notificação](https://github.com/user-attachments/assets/ab3f0c56-cdd2-456e-a445-4a2dc533a203)
+![image](https://github.com/user-attachments/assets/1db71e44-af03-479b-8a74-31cc31631fc3)
 
 ---
 
