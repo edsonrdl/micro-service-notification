@@ -15,8 +15,8 @@ const nodemailer = require('nodemailer');
 
 
   const info = await transporter.sendMail({
-    from: '"Teste" <teste@exemplo.com>',
-    to: 'destinatario@exemplo.com',
+    from: '"Teste" <asiCode@exemplo.com>',
+    to: 'monkeyDLuffyo@exemplo.com',
     subject: 'Teste Ethereal',
     text: 'Olá, este é um e-mail fictício para testes!',
     html: '<b>Olá, este é um e-mail fictício para testes!</b>'
