@@ -8,7 +8,7 @@ const MongoDbRepository = require('./infrastructure/persistence/repositories/mon
 const NotificationRepository = require('./infrastructure/persistence/repositories/notificationRepository/NotificationRepository');
 const RabbitMqConsumer = require('./infrastructure/messaging/RabbitMqConsumer');
 const NotificationController = require('./microservice/controllers/NotificationController');
-const paymentRoutes = require('./microservice/routes/PaymentRoutes.JS');
+const notificationRoutes = require('./microservice/routes/NotificationRoutes.JS');
 
 (async function startSystem() {
     try {

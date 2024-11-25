@@ -11,7 +11,7 @@ class NotificationRepository extends INotificationRepository {
 
     async save(notification) {
         try {
-            const result = await this.collection.insertOne(payment);
+            const result = await this.collection.insertOne(notification);
             console.log(`Pedido salvo no Banco de notificação com ID: ${result.insertedId}`);
         } catch (err) {
             console.error('Erro ao salvar notificação no Banco:', err);

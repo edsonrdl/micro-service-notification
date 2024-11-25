@@ -1,6 +1,6 @@
 const Notification = require("../../../domain/entities/Notification");
 
-class ProcessPaymentService {
+class ProcessNotificationService {
   constructor(notificationRepository) {
     this.notificationRepository = notificationRepository;
   }
@@ -22,4 +22,4 @@ class ProcessPaymentService {
   }
 }
 
-module.exports = ProcessPaymentService;
+module.exports = ProcessNotificationService;
